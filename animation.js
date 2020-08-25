@@ -1,89 +1,91 @@
-
 var object=document.querySelector(".shuttle img");
-var upward_movement=0;
+var button=document.querySelector('.start-btn'); 
+var racket=document.querySelector('.racket');
+var racket2=document.querySelector('.racket-2');
+var pos=1,pos_rotate=1,flag=0,left_side=1, upward_movement=0,timer;
 
 
-var timer= setInterval(move,.0001);
 
-var pos=1;
-var pos_rotate=1;
-var flag=0,left_side=1;
+button.addEventListener('click', function(){
+    if(button.innerHTML== "START")
 
-
-function move(){
-  
-    if(parseInt(object.style.bottom)== 0){
-      
-        flag=1;
-
+    {   button.innerHTML="STOP";
+        timer= setInterval(move,1);
+        
     }
 
-    if(parseInt(object.style.bottom)==0  && left_side ==1 ){
-      
+    else{
+        clearInterval(timer);
+        button.innerHTML="START";
+     
+        
+        
+    }
+});
+
+
+
+
+function move(){    // to move the shuttle across the net
+  
+    if(parseInt(object.style.bottom)== 0) flag=1;  // when shuttle comes from right to left
+
+
+    if(parseInt(object.style.bottom)==0  && left_side ==1 ){  // when shuttle comes from left to right
         flag=0;
         pos=1;
     }
 
+    if(flag==0)         //left to right
+        {   
+            racket.style.transform ="rotate(30deg)";  
 
-
-    if(flag==0)
-        {   left_side=0;
+            left_side=0;
             object.style.left =  + pos + 'px';
             pos+=1;
+
             if( parseInt(object.style.left) >=screen.width/6  && parseInt(object.style.left) <=screen.width/4) {
-                // pos_rotate+=5;
-                upward_movement+=1/4;
-               // object.style.left =  + pos + 'px';
+                upward_movement+=1/4; // upward movement of shuttle
+
                 object.style.bottom =  + upward_movement + 'px';
-                //object.stsyle.bottom =  upward_movement+ 'px';
             }
              
             else if( parseInt(object.style.left) >=screen.width/4  && parseInt(object.style.left) <=screen.width/2) {
-                // pos_rotate+=5;
                 upward_movement+=0.2;
-               // object.style.left =  + pos + 'px';
                 object.style.bottom =  + upward_movement + 'px';
-                //object.style.bottom =  upward_movement+ 'px';
             }
 
             else if(parseInt(object.style.left) >=screen.width/2 && parseInt(object.style.left)<screen.width/1.5){
-                    
-                        // object.style.left =  + pos + 'px';
-                        // upward_movement=0;
                         object.style.bottom =  upward_movement+ 'px';
 
             }
 
             else if(parseInt(object.style.left) >=screen.width/1.5){
-                        
                 object.style.left =  + pos + 'px';
-                upward_movement-=0.7;
+                upward_movement-=0.7;                       // downward movement of shuttle
                 object.style.bottom =  upward_movement+ 'px';
+                racket2.style.transform="rotate(-30deg)"; 
 
-    }
+                                                                    }
 
     
         else{
             upward_movement+=1;
-            object.style.bottom =  + upward_movement + 'px';}
-
-
+            object.style.bottom =  + upward_movement + 'px';} 
+        
         
         }
         
-        if(flag==1)
-        {  
+        if(flag==1)                 // right to left
+        {  racket2.style.transform="rotate(30deg)"; 
              left_side=1;
             
             pos-=1;
             object.style.left =  + pos + 'px';
 
             if(parseInt(object.style.left) <=screen.width/1.1 && parseInt(object.style.left) >screen.width/1.5){
-                // pos_rotate+=5;
-               //alert("we");
-                upward_movement+=0.7;
-              //  object.style.left =  + pos + 'px';
-                //object.style.bottom =  + upward_movement + 'px';
+                upward_movement+=0.7;   // upward movement
+
                 object.style.bottom =  upward_movement+ 'px';
             }
     
@@ -92,15 +94,14 @@ function move(){
                 object.style.left =  + pos + 'px';
                 upward_movement-=0;
                 object.style.bottom =  upward_movement+ 'px';
-        
+                racket.style.transform ="rotate(-30deg )"; 
             }
         
 
 
             else if(parseInt(object.style.left) <=screen.width/1.8){
-           // alert('asd');
             object.style.left =  + pos + 'px';
-            upward_movement-=0.5;
+            upward_movement-=0.5; // downward movement of shuttle
             object.style.bottom =  upward_movement+ 'px';
                                         
              }
@@ -113,22 +114,8 @@ function move(){
            }
         
         }
-
-
-
-    object.style.transform = " rotate("+pos_rotate+"deg )";
+    object.style.transform = " rotate("+pos_rotate+"deg )";             // rotating shuttle 
     pos_rotate +=0.4;
     
-    
-    console.log(pos);
-    console.log(parseInt(object.style.left));
-    console.log(screen.width/6);
-
-
-
-
-
-
-
-    
 }
+
