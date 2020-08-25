@@ -2,12 +2,33 @@
     margin:0;
     padding:0;
     box-sizing: border-box;
+    
 }
-body{background:rgb(189, 170, 170);}
+body{background:rgb(189, 170, 170) ;
+    }
+
+
+.heading{
+   
+    margin-top:50px;
+    text-align:center;
+    font-size:50px;
+    background:rgba(128, 128, 128, 0.11);
+}
+
+.net{
+    position:absolute;
+    bottom:0px;
+    left:50%;
+    height:44%;
+    width:3px;
+    background-color: black;
+}
 
 .my-object{
-    position: relative;
-    margin-top:400px;
+    position: absolute;
+    bottom:0px;
+    left:0px;
 
 }
 
